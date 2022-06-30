@@ -1,0 +1,11 @@
+.header__open-btn {
+  margin-top: 5px;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 18px;
+  line-height: 22px;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
