@@ -1,0 +1,92 @@
+.header {}
+.header__logo {}
+.header__open-btn {}
+
+.register__form {
+  margin: 60px auto 0;
+  max-width: 358px;
+}
+
+.register__content {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.register__title {
+  margin: 0 0 50px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+}
+
+.register__form-field {
+    display: block;
+}
+
+.register__form-field:last-of-type {
+  margin-bottom: 215px;
+}
+
+.register__input {
+  display: block;
+  margin-bottom: 30px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 0;
+  padding-bottom: 6px;
+  width: 100%;
+  background-color: black;
+}
+
+.register__input:focus {
+  border-bottom: 1px solid rgb(113 185 245);
+}
+
+.register__submit-button {
+  display: block;
+  border: none;
+  border-radius: 2px;
+  padding: 14px 0;
+  width: 100%;
+  font-size: 18px;
+  line-height: 22px;
+  transition: 0.3s linear;
+  cursor: pointer;
+}
+
+.register__submit-button:hover {
+  opacity: 0.85;
+}
+
+.question {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 358px;
+}
+
+.question__text {
+  margin: 15px 5px 0 0;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.question__login {
+  margin-top: 15px;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  line-height: 17px;
+  color: inherit;
+  background-color: transparent;
+  transition: 0.3s linear;
+  cursor: pointer;
+}
+
+.question__login:hover {
+  opacity: 0.6;
+}

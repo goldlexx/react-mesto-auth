@@ -9,6 +9,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import Register  from './Register';
+import Login from './Login';
 import api from '../utils/api';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -134,6 +135,7 @@ const App = () => {
           <Register></Register>
         </Route>
         <Route path='/sign-in'>
+          <Login></Login>
         </Route>
         <Route exact path='/'>
           <CurrentUserContext.Provider value={currentUser}>

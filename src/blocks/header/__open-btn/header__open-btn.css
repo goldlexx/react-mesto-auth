@@ -9,3 +9,8 @@
   background-color: transparent;
   cursor: pointer;
 }
+
+.header__open-btn:hover {
+  opacity: 0.6;
+  transition: 0.3s linear;
+}
