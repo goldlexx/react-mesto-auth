@@ -1,19 +1,18 @@
 .header {}
 .header__logo {}
-.header__open-btn {}
 
-.register__form {
+.authorization__form {
   margin: 60px auto 0;
   max-width: 358px;
 }
 
-.register__content {
+.authorization__content {
   margin: 0;
   border: none;
   padding: 0;
 }
 
-.register__title {
+.authorization__title {
   margin: 0 0 50px;
   font-weight: 900;
   font-size: 24px;
@@ -21,15 +20,15 @@
   text-align: center;
 }
 
-.register__form-field {
+.authorization__form-field {
     display: block;
 }
 
-.register__form-field:last-of-type {
+.authorization__form-field:last-of-type {
   margin-bottom: 215px;
 }
 
-.register__input {
+.authorization__input {
   display: block;
   margin-bottom: 30px;
   outline: none;
@@ -42,11 +41,11 @@
   background-color: black;
 }
 
-.register__input:focus {
+.authorization__input:focus {
   border-bottom: 1px solid rgb(113 185 245);
 }
 
-.register__submit-button {
+.authorization__submit-button {
   display: block;
   border: none;
   border-radius: 2px;
@@ -58,7 +57,7 @@
   cursor: pointer;
 }
 
-.register__submit-button:hover {
+.authorization__submit-button:hover {
   opacity: 0.85;
 }
 
@@ -111,5 +110,25 @@
   margin: 60px auto 32px;
   width: 120px;
   height: 120px;
+}
+
+.popup_image_type_success {
   background: url(../images/yes.svg) no-repeat center;
+}
+
+.popup_image_type_fail {
+  background: url(../images/no.svg) no-repeat center;
+}
+
+.header__info {
+  display: flex;
+  align-items: baseline;
+}
+
+.header__email {
+  margin: 0;
+}
+
+.header__open-btn {
+  margin-left: 24px;
 }

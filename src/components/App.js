@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -13,7 +13,7 @@ import Login from './Login';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import api from '../utils/api';
-import * as auth from '../utils/auth';
+import * as apiAuth from '../utils/apiAuth.';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -29,10 +29,9 @@ const App = () => {
     link: '',
   });
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({
-    email: '',
-    _id: '',
-  });
+  const [email, setEmail] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [message, setMessage] = useState();
 
   useEffect(() => {
     api
@@ -53,11 +52,22 @@ const App = () => {
     tokenCheck();
   }, []);
 
-  const tokenCheck = () => {};
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/');
+    }
+  }, [loggedIn]);
 
-  // const handleLogin = () => {
-  //   setLoggedIn(true);
-  // };
+  const tokenCheck = () => {
+    let jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      apiAuth.getContent(jwt).then((res) => {
+        if (res) {
+          setLoggedIn(true);
+        }
+      });
+    }
+  };
 
   const setStateCards = (id, newCard) => {
     setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
@@ -68,6 +78,7 @@ const App = () => {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setSelectedCard({ name: '', link: '' });
+    setIsSuccess(false);
   };
 
   const handleEditAvatarClick = () => {
@@ -87,28 +98,34 @@ const App = () => {
   };
 
   const handleRegister = (email, password) => {
-    auth
+    apiAuth
       .register(password, email)
       .then((data) => {
-
-        // setUserData({
-        //   email: data.email,
-        //   _id: data.id
-        // });
-        setLoggedIn(true);
+        setIsSuccess(true);
+        setMessage(true);
         navigate('/sign-in');
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setIsSuccess(true);
+        setMessage(false);
+        console.error(err);
+      });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
   };
 
   const handleLogin = (email, password) => {
-    auth.authorize(email, password).then((res) =>{
+    apiAuth.authorize(email, password).then((res) => {
       if (res.token) {
-        localStorage.setItem('jwt', res.token)
+        localStorage.setItem('jwt', res.token);
       }
-      navigate('/');
-    })
-  }
+      setEmail(email);
+      setLoggedIn(true);
+    });
+  };
 
   const handleCardDelete = (card) => {
     api
@@ -177,7 +194,7 @@ const App = () => {
             path='/'
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Header />
+                <Header handleLogout={handleLogout} email={email} />
                 <Main
                   onEditProfile={handleEditProfileClick}
                   onAddPlace={handleAddPlaceClick}
@@ -196,7 +213,16 @@ const App = () => {
             path='/sign-up'
             element={<Register handleRegister={handleRegister} />}
           />
-          <Route path='/sign-in' element={<Login handleLogin={handleLogin}/>} />
+          <Route
+            path='/sign-in'
+            element={<Login handleLogin={handleLogin} />}
+          />
+          <Route
+            path='*'
+            element={
+              loggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' />
+            }
+          />
         </Routes>
 
         <EditProfilePopup
@@ -227,7 +253,11 @@ const App = () => {
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-        <InfoTooltip />
+        <InfoTooltip
+          isSuccess={isSuccess}
+          message={message}
+          onClose={closeAllPopups}
+        />
       </div>
     </CurrentUserContext.Provider>
   );

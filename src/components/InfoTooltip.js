@@ -1,20 +1,22 @@
-const InfoTooltip = () => {
-
-
+const InfoTooltip = ({ isSuccess, message, onClose }) => {
+  const handlePopup = isSuccess ? 'popup_opened' : '';
+  const handleImage = message
+    ? 'popup_image_type_success'
+    : 'popup_image_type_fail';
+  const handleMessage = message
+    ? 'Вы успешно зарегистрировались!'
+    : 'Что-то пошло не так! Попробуйте ещё раз.';
 
   return (
-    <div className='popup popup_type_info'>
+    <div className={`popup popup_type_info ${handlePopup}`}>
       <div className='popup__container popup__container_type_info'>
-
-        <div className="popup__image"></div>
-
-        <p className="popup__text">Вы успешно зарегистрировались!</p>
-
+        <div className={`popup__image ${handleImage}`}></div>
+        <p className='popup__text'>{handleMessage}</p>
         <button
           className='popup__button-close'
           type='button'
           aria-label='Кнопка закрытия'
-          // onClick={onClose}
+          onClick={onClose}
         />
       </div>
     </div>

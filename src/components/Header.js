@@ -1,9 +1,15 @@
 import logo from '../images/header-logo.svg';
 
-const Header = () => {
+const Header = ({ handleLogout, email }) => {
   return (
     <header className='header'>
       <img src={logo} alt='Логотип' className='header__logo' />
+      <div className='header__info'>
+        <p className='header__email'>{email}</p>
+        <button className='header__open-btn' onClick={handleLogout}>
+          Выйти
+        </button>
+      </div>
     </header>
   );
 };
