@@ -89,7 +89,7 @@ const App = () => {
   const tokenCheck = () => {
     let jwt = localStorage.getItem('jwt');
     if (jwt) {
-      apiAuth.getContent(jwt).then((res) => {
+      apiAuth.checkToken(jwt).then((res) => {
         if (res) {
           setLoggedIn(true);
         }

@@ -1,31 +1,25 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
+import { useForm } from '../hoocks/useForm';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const currentUser = useContext(CurrentUserContext);
+  const controlInput = useForm();
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    controlInput.setValues({
+      name: currentUser.name,
+      about: currentUser.about,
+    });
   }, [currentUser, isOpen]);
 
-  const [name, setName] = useState('Геральт');
-  const [description, setDescription] = useState('Ведьмак');
-
-  const handleChangeName = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleChangeDescription = (e) => {
-    setDescription(e.target.value);
-  };
-
   const handleSubmit = (e) => {
+    const { name, about } = controlInput.values;
     e.preventDefault();
     onUpdateUser({
       name,
-      about: description,
+      about: about,
     });
   };
 
@@ -40,8 +34,8 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
     >
       <label className='popup__form-field'>
         <input
-          onChange={handleChangeName}
-          value={name ? name : ''}
+          onChange={controlInput.handleChange}
+          value={controlInput.name}
           type='text'
           name='name'
           id='name'
@@ -56,8 +50,8 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
       </label>
       <label className='popup__form-field'>
         <input
-          onChange={handleChangeDescription}
-          value={description ? description : ''}
+          onChange={controlInput.handleChange}
+          value={controlInput.description}
           type='text'
           name='about'
           placeholder='Введите профессию'

@@ -1,21 +1,13 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useForm } from '../hoocks/useForm';
 import logo from '../images/header-logo.svg';
 
 const Login = ({ onLogin }) => {
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((oldData) => ({ ...oldData, [name]: value }));
-  };
+  const controlInput = useForm();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = data;
+    const { email, password } = controlInput.values;
     onLogin(email, password);
   };
 
@@ -44,8 +36,8 @@ const Login = ({ onLogin }) => {
                   placeholder='Email'
                   autoComplete='off'
                   className='authorization__input'
-                  onChange={handleChange}
-                  value={data.email}
+                  onChange={controlInput.handleChange}
+                  value={controlInput.email}
                   minLength='5'
                   maxLength='40'
                   required
@@ -58,8 +50,8 @@ const Login = ({ onLogin }) => {
                   placeholder='Пароль'
                   autoComplete='off'
                   className='authorization__input'
-                  onChange={handleChange}
-                  value={data.password}
+                  onChange={controlInput.handleChange}
+                  value={controlInput.password}
                   minLength='5'
                   maxLength='40'
                   required

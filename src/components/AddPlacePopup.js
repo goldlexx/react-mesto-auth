@@ -1,25 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useForm } from '../hoocks/useForm';
 import PopupWithForm from './PopupWithForm';
 
 const AddPlacePopup = ({ isOpen, onClose, onUpdateCards }) => {
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('');
-
+  const controlInput = useForm();
   useEffect(() => {
-    setName('');
-    setLink('');
+    controlInput.setValues('');
   }, [isOpen]);
-
-  const handleChangeTitle = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleChangeLink = (e) => {
-    setLink(e.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { name, link } = controlInput.values;
     onUpdateCards({
       name: name,
       link: link,
@@ -37,8 +28,8 @@ const AddPlacePopup = ({ isOpen, onClose, onUpdateCards }) => {
     >
       <label className='popup__form-field'>
         <input
-          onChange={handleChangeTitle}
-          value={name ? name : ''}
+          onChange={controlInput.handleChange}
+          value={controlInput.name}
           type='text'
           name='name'
           placeholder='Название'
@@ -53,8 +44,8 @@ const AddPlacePopup = ({ isOpen, onClose, onUpdateCards }) => {
       </label>
       <label className='popup__form-field'>
         <input
-          onChange={handleChangeLink}
-          value={link ? link : ''}
+          onChange={controlInput.handleChange}
+          value={controlInput.link}
           type='url'
           name='link'
           placeholder='Ссылка на картинку'
