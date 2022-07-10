@@ -4,6 +4,7 @@ import PopupWithForm from './PopupWithForm';
 
 const AddPlacePopup = ({ isOpen, onClose, onUpdateCards }) => {
   const controlInput = useForm();
+  
   useEffect(() => {
     controlInput.setValues('');
   }, [isOpen]);
