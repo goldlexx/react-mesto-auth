@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link,  useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../images/header-logo.svg';
 
 const Login = ({handleLogin}) => {
@@ -23,7 +23,7 @@ const Login = ({handleLogin}) => {
     <>
       <header className='header'>
         <img src={logo} alt='Логотип' className='header__logo' />
-        <Link to="/sign-up" className='header__open-btn'>Регистрация</Link>
+        <Link to="/sign-up" className='header__btn'>Регистрация</Link>
       </header>
       <main>
         <section className='authorization'>
@@ -40,6 +40,8 @@ const Login = ({handleLogin}) => {
                   className='authorization__input'
                   onChange={handleChange}
                   value={data.email}
+                  minLength="5"
+                  maxLength="40"
                   required
                 />
               </label>
@@ -52,6 +54,8 @@ const Login = ({handleLogin}) => {
                   className='authorization__input'
                   onChange={handleChange}
                   value={data.password}
+                  minLength="5"
+                  maxLength="40"
                   required
                 />
               </label>

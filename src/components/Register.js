@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../images/header-logo.svg';
 
-const Register = ({handleRegister}) => {
+const Register = ({ handleRegister }) => {
   const [data, setData] = useState({
     email: '',
     password: '',
   });
-
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,11 +23,17 @@ const Register = ({handleRegister}) => {
     <>
       <header className='header'>
         <img src={logo} alt='Логотип' className='header__logo' />
-        <Link to="/sign-in" className='header__open-btn'>Войти</Link>
+        <Link to='/sign-in' className='header__btn'>
+          Войти
+        </Link>
       </header>
       <main>
         <section className='authorization'>
-          <form action='#' className='authorization__form' onSubmit={handleSubmit}>
+          <form
+            action='#'
+            className='authorization__form'
+            onSubmit={handleSubmit}
+          >
             <fieldset className='authorization__content'>
               <h2 className='authorization__title'>Регистрация</h2>
 
@@ -43,6 +46,8 @@ const Register = ({handleRegister}) => {
                   className='authorization__input'
                   onChange={handleChange}
                   value={data.email}
+                  minLength='5'
+                  maxLength='40'
                   required
                 />
               </label>
@@ -55,6 +60,8 @@ const Register = ({handleRegister}) => {
                   className='authorization__input'
                   onChange={handleChange}
                   value={data.password}
+                  minLength='5'
+                  maxLength='40'
                   required
                 />
               </label>

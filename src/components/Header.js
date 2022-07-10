@@ -6,7 +6,7 @@ const Header = ({ handleLogout, email }) => {
       <img src={logo} alt='Логотип' className='header__logo' />
       <div className='header__info'>
         <p className='header__email'>{email}</p>
-        <button className='header__open-btn' onClick={handleLogout}>
+        <button className='header__btn' onClick={handleLogout}>
           Выйти
         </button>
       </div>
