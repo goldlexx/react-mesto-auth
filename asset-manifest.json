@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.92d52673.css",
+    "main.js": "/static/js/main.b7c4beae.js",
+    "static/media/Inter-Medium.woff": "/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/static/media/Inter-Black.16792010d318c2904562.woff",
+    "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.fc49d131f795b4d48f26.woff",
+    "static/media/Inter-Medium.woff2": "/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/static/media/Inter-Black.23eb804eb49e365fa2f1.woff2",
+    "static/media/Inter-Regular.woff2": "/static/media/Inter-Regular.2505c0d4b34ffca98f8f.woff2",
+    "static/media/header-logo.svg": "/static/media/header-logo.3d8293a241b315143f02a9df076e611b.svg",
+    "index.html": "/index.html",
+    "static/media/no.svg": "/static/media/no.df8eddf661ff88f2d0ef.svg",
+    "static/media/elements-like.svg": "/static/media/elements-like.77ea1611be45fdeca1cc.svg",
+    "static/media/elements-delete.svg": "/static/media/elements-delete.ce3b64935accf9b8212e.svg",
+    "static/media/yes.svg": "/static/media/yes.1b6082f862eac35e2514.svg",
+    "static/media/elements-like-black.svg": "/static/media/elements-like-black.08af6fbb37d19d4aa333.svg",
+    "static/media/edit-avatar.svg": "/static/media/edit-avatar.a086f758840ae814ecde.svg",
+    "static/media/popup-close.svg": "/static/media/popup-close.58aaf1081fb73be79fc3.svg",
+    "static/media/image-edit.svg": "/static/media/image-edit.686ec1de24fcfb5046fa.svg",
+    "static/media/add-image.svg": "/static/media/add-image.954d1ecf00812f229770.svg",
+    "static/media/add-image-small.svg": "/static/media/add-image-small.e932ceb74cf1e5663fa8.svg",
+    "static/media/popup-close-mobile.svg": "/static/media/popup-close-mobile.6613295610766f0c6baa.svg",
+    "main.92d52673.css.map": "/static/css/main.92d52673.css.map",
+    "main.b7c4beae.js.map": "/static/js/main.b7c4beae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.92d52673.css",
+    "static/js/main.b7c4beae.js"
+  ]
+}
