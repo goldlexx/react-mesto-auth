@@ -1,8 +1,8 @@
 const InfoTooltip = ({ isSuccess, message, onClose }) => {
   const handlePopup = isSuccess ? 'popup_opened' : '';
   const handleImage = message
-    ? 'popup_image_type_success'
-    : 'popup_image_type_fail';
+    ? 'popup__image_type_success'
+    : 'popup__image_type_fail';
   const handleMessage = message
     ? 'Вы успешно зарегистрировались!'
     : 'Что-то пошло не так! Попробуйте ещё раз.';

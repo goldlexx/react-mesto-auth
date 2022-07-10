@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../images/header-logo.svg';
 
-const Register = ({ handleRegister }) => {
+const Register = ({ onRegister  }) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -16,7 +16,7 @@ const Register = ({ handleRegister }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = data;
-    handleRegister(email, password);
+    onRegister(email, password);
   };
 
   return (

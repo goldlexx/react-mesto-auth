@@ -29,9 +29,9 @@ const App = () => {
     link: '',
   });
   const [loggedIn, setLoggedIn] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('practicum@yandex.ru');
   const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState(false);
 
   useEffect(() => {
     api
@@ -58,27 +58,16 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  const tokenCheck = () => {
-    let jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      apiAuth.getContent(jwt).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-        }
-      });
-    }
-  };
-
-  const setStateCards = (id, newCard) => {
-    setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
-  };
-
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setSelectedCard({ name: '', link: '' });
     setIsSuccess(false);
+  };
+
+  const setStateCards = (id, newCard) => {
+    setCards((state) => state.map((c) => (c._id === id ? newCard : c)));
   };
 
   const handleEditAvatarClick = () => {
@@ -97,7 +86,18 @@ const App = () => {
     setSelectedCard(card);
   };
 
-  const handleRegister = (email, password) => {
+  const tokenCheck = () => {
+    let jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      apiAuth.getContent(jwt).then((res) => {
+        if (res) {
+          setLoggedIn(true);
+        }
+      });
+    }
+  };
+
+  const onRegister = (email, password) => {
     apiAuth
       .register(password, email)
       .then((data) => {
@@ -112,12 +112,7 @@ const App = () => {
       });
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    setLoggedIn(false);
-  };
-
-  const handleLogin = (email, password) => {
+  const onLogin = (email, password) => {
     apiAuth.authorize(email, password).then((res) => {
       if (res.token) {
         localStorage.setItem('jwt', res.token);
@@ -125,6 +120,11 @@ const App = () => {
       setEmail(email);
       setLoggedIn(true);
     });
+  };
+
+  const onSignOut = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
   };
 
   const handleCardDelete = (card) => {
@@ -194,7 +194,7 @@ const App = () => {
             path='/'
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Header handleLogout={handleLogout} email={email} />
+                <Header onSignOut={onSignOut} email={email} />
                 <Main
                   onEditProfile={handleEditProfileClick}
                   onAddPlace={handleAddPlaceClick}
@@ -211,11 +211,11 @@ const App = () => {
 
           <Route
             path='/sign-up'
-            element={<Register handleRegister={handleRegister} />}
+            element={<Register onRegister ={onRegister } />}
           />
           <Route
             path='/sign-in'
-            element={<Login handleLogin={handleLogin} />}
+            element={<Login onLogin={onLogin} />}
           />
           <Route
             path='*'
