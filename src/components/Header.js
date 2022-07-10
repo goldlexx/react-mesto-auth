@@ -1,14 +1,16 @@
+import { Link } from 'react-router-dom';
 import logo from '../images/header-logo.svg';
 
-const Header = ({ onSignOut, email }) => {
+const Header = ({ ...props }) => {
+  const { email, toLink, onSignOut, textLink } = props;
   return (
     <header className='header'>
       <img src={logo} alt='Логотип' className='header__logo' />
       <div className='header__info'>
-        <p className='header__email'>{email}</p>
-        <button className='header__btn' onClick={onSignOut}>
-          Выйти
-        </button>
+        {email ? <p className='header__email'>{email}</p> : ''}
+        <Link className='header__btn' to={toLink} onClick={onSignOut}>
+          {textLink}
+        </Link>
       </div>
     </header>
   );

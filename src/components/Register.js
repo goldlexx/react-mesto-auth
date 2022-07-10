@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useForm } from '../hoocks/useForm';
-import logo from '../images/header-logo.svg';
+import Header from './Header';
 
-const Register = ({ onRegister  }) => {
+
+const Register = ({ onRegister }) => {
   const controlInput = useForm();
 
   const handleSubmit = (e) => {
@@ -10,15 +11,10 @@ const Register = ({ onRegister  }) => {
     const { email, password } = controlInput.values;
     onRegister(email, password);
   };
-  console.log(controlInput.values);
+
   return (
     <>
-      <header className='header'>
-        <img src={logo} alt='Логотип' className='header__logo' />
-        <Link to='/sign-in' className='header__btn'>
-          Войти
-        </Link>
-      </header>
+      <Header textLink={'Войти'} toLink={'/sign-in'} />
       <main>
         <section className='authorization'>
           <form
@@ -37,7 +33,7 @@ const Register = ({ onRegister  }) => {
                   autoComplete='off'
                   className='authorization__input'
                   onChange={controlInput.handleChange}
-                  value={controlInput.email}
+                  value={controlInput?.values?.email || ''}
                   minLength='5'
                   maxLength='40'
                   required
@@ -51,7 +47,7 @@ const Register = ({ onRegister  }) => {
                   autoComplete='off'
                   className='authorization__input'
                   onChange={controlInput.handleChange}
-                  value={controlInput.email}
+                  value={controlInput?.values?.password || ''}
                   minLength='5'
                   maxLength='40'
                   required

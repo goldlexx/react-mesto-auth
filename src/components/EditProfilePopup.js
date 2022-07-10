@@ -35,7 +35,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
       <label className='popup__form-field'>
         <input
           onChange={controlInput.handleChange}
-          value={controlInput.name}
+          value={controlInput?.values?.name || ''}
           type='text'
           name='name'
           id='name'
@@ -51,7 +51,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
       <label className='popup__form-field'>
         <input
           onChange={controlInput.handleChange}
-          value={controlInput.description}
+          value={controlInput?.values?.about || ''}
           type='text'
           name='about'
           placeholder='Введите профессию'

@@ -1,5 +1,5 @@
-const InfoTooltip = ({ isSuccess, message, onClose }) => {
-  const handlePopup = isSuccess ? 'popup_opened' : '';
+const InfoTooltip = ({ IsInfoToolTipOpen, message, onClose }) => {
+  const handlePopup = IsInfoToolTipOpen ? 'popup_opened' : '';
   const handleImage = message
     ? 'popup__image_type_success'
     : 'popup__image_type_fail';

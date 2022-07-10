@@ -4,9 +4,9 @@ import PopupWithForm from './PopupWithForm';
 
 const AddPlacePopup = ({ isOpen, onClose, onUpdateCards }) => {
   const controlInput = useForm();
-  
+
   useEffect(() => {
-    controlInput.setValues('');
+    controlInput.setValues({});
   }, [isOpen]);
 
   const handleSubmit = (e) => {
@@ -30,7 +30,7 @@ const AddPlacePopup = ({ isOpen, onClose, onUpdateCards }) => {
       <label className='popup__form-field'>
         <input
           onChange={controlInput.handleChange}
-          value={controlInput.name}
+          value={controlInput?.values?.name || ''}
           type='text'
           name='name'
           placeholder='Название'
@@ -46,7 +46,7 @@ const AddPlacePopup = ({ isOpen, onClose, onUpdateCards }) => {
       <label className='popup__form-field'>
         <input
           onChange={controlInput.handleChange}
-          value={controlInput.link}
+          value={controlInput?.values?.link || ''}
           type='url'
           name='link'
           placeholder='Ссылка на картинку'

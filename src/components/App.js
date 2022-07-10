@@ -19,7 +19,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const App = () => {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
@@ -30,8 +30,14 @@ const App = () => {
   });
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('practicum@yandex.ru');
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [IsInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
   const [message, setMessage] = useState(false);
+  const isOpen =
+    isEditAvatarPopupOpen ||
+    isEditProfilePopupOpen ||
+    isAddPlacePopupOpen ||
+    IsInfoToolTipOpen ||
+    selectedCard.link;
 
   useEffect(() => {
     api
@@ -58,12 +64,26 @@ const App = () => {
     }
   }, [loggedIn]);
 
+  useEffect(() => {
+    const closeByEscape = (evt) => {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      };
+    }
+  }, [isOpen]);
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setSelectedCard({ name: '', link: '' });
-    setIsSuccess(false);
+    setIsInfoToolTipOpen(false);
   };
 
   const setStateCards = (id, newCard) => {
@@ -87,13 +107,18 @@ const App = () => {
   };
 
   const tokenCheck = () => {
-    let jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      apiAuth.checkToken(jwt).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-        }
-      });
+      apiAuth
+        .checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   };
 
@@ -101,25 +126,31 @@ const App = () => {
     apiAuth
       .register(password, email)
       .then((data) => {
-        setIsSuccess(true);
         setMessage(true);
         navigate('/sign-in');
       })
       .catch((err) => {
-        setIsSuccess(true);
         setMessage(false);
         console.error(err);
+      })
+      .finally(() => {
+        setIsInfoToolTipOpen(true);
       });
   };
 
   const onLogin = (email, password) => {
-    apiAuth.authorize(email, password).then((res) => {
-      if (res.token) {
-        localStorage.setItem('jwt', res.token);
-      }
-      setEmail(email);
-      setLoggedIn(true);
-    });
+    apiAuth
+      .authorize(email, password)
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
+        }
+        setEmail(email);
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const onSignOut = () => {
@@ -194,7 +225,7 @@ const App = () => {
             path='/'
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Header onSignOut={onSignOut} email={email} />
+                <Header onSignOut={onSignOut} email={email} toLink={'/'} textLink={'Выйти'} />
                 <Main
                   onEditProfile={handleEditProfileClick}
                   onAddPlace={handleAddPlaceClick}
@@ -211,12 +242,9 @@ const App = () => {
 
           <Route
             path='/sign-up'
-            element={<Register onRegister ={onRegister } />}
+            element={<Register onRegister={onRegister} />}
           />
-          <Route
-            path='/sign-in'
-            element={<Login onLogin={onLogin} />}
-          />
+          <Route path='/sign-in' element={<Login onLogin={onLogin} />} />
           <Route
             path='*'
             element={
@@ -254,7 +282,7 @@ const App = () => {
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
         <InfoTooltip
-          isSuccess={isSuccess}
+          IsInfoToolTipOpen={IsInfoToolTipOpen}
           message={message}
           onClose={closeAllPopups}
         />
