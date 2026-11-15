@@ -62,7 +62,7 @@ const App = () => {
     if (loggedIn) {
       navigate('/');
     }
-  }, [loggedIn]);
+  }, [loggedIn, navigate]);
 
   useEffect(() => {
     const closeByEscape = (evt) => {

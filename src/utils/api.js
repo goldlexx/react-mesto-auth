@@ -1,4 +1,4 @@
-class Api {
+export class Api {
   constructor({ url, headers }) {
     this._url = url;
     this._headers = headers;
@@ -100,7 +100,9 @@ class Api {
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-41/',
   headers: {
-    authorization: '773f7647-9f5b-47ff-aca1-eaec927fb96b',
+    ...(process.env.REACT_APP_API_TOKEN
+      ? { authorization: process.env.REACT_APP_API_TOKEN }
+      : {}),
     'Content-Type': 'application/json',
   },
 });

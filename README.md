@@ -36,6 +36,14 @@
 ```
 git clone https://goldlexx.github.io/react-mesto-auth.git
 ```
+Create a local `.env.local` from `.env.example` and set `REACT_APP_API_TOKEN` before running the app. The token is included in the browser bundle and is not confidential once built.
+
+```bash
+npm ci
+npm start
+npm test -- --watchAll=false
+```
+
 Запустите локальный сервер разработки с функцией перезагрузки в реальном времени для статических и динамических страниц - [How do you set up a local testing server? (MDN web docs)](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server)
 
 
