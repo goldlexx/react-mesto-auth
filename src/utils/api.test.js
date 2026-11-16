@@ -15,7 +15,7 @@ afterEach(() => {
 });
 
 test('sends a new card with JSON data and the authorization header', async () => {
-  const response = { ok: true, json: jest.fn().mockResolvedValue({ _id: 'card-1' }) };
+  const response = { ok: true, status: 200, text: jest.fn().mockResolvedValue('{"_id":"card-1"}') };
   global.fetch = jest.fn().mockResolvedValue(response);
 
   await expect(createApi().addNewCard({ name: 'Lake', link: 'https://example.test/lake.jpg' }))
@@ -29,7 +29,11 @@ test('sends a new card with JSON data and the authorization header', async () =>
 });
 
 test('rejects unsuccessful API responses', async () => {
-  global.fetch = jest.fn().mockResolvedValue({ ok: false, status: 403 });
+  global.fetch = jest.fn().mockResolvedValue({
+    ok: false,
+    status: 403,
+    text: jest.fn().mockResolvedValue('{"message":"Forbidden"}'),
+  });
 
-  await expect(createApi().getCardList()).rejects.toBe('Ошибка: 403');
+  await expect(createApi().getCardList()).rejects.toThrow('Forbidden');
 });

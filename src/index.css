@@ -1,5 +1,12 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/font.css);
+.api-error {
+  margin: 0;
+  padding: 12px 16px;
+  color: #721c24;
+  background: #f8d7da;
+  text-align: center;
+}
 @import url(./blocks/page/page.css);
 @import url(./blocks/page/__content/page__content.css);
 @import url(./blocks/header/header.css);

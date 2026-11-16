@@ -1,70 +1,23 @@
-# Проектная работа: "Mesto (Auth)". Создана в рамках учебы в [Яндекс.Практикум](https://praktikum.yandex.ru/) на курсе ["Веб-разработчик"](https://praktikum.yandex.ru/web/).
+# Mesto — React authentication app
 
-## Описание:
+Mesto is a photo-sharing interface built with React. This repository contains the client application; registration, sign-in, profile, and card data require compatible Mesto data and authentication APIs.
 
-"Mesto" - это интерактивная страница, где пользователи могут делиться фотографиями. В работе применены расширенные возможности HTML, CSS и JavaScript.
-В данной работе реализован функционал  регистрации и авторизации.
+## Run locally
 
-| **GithHub Pages** | [Auth Mesto](https://goldlexx.github.io/react-mesto-auth/) |
-| ----------------- | -------------------------------------------------------------------- |
-
-## Примененные знания
-* Верстка
-  - Соверменная верстка с использованием Flexbox и Grid Layout
-  - Семантическая верстка
-  - Адаптивная верстка сайта для разных экранов (от 320 до 1280+)
-  - Верстка форм (текстовые поля и кнопки)
-  - Методология БЭМ
-
-* React
-  - использование Create React App
-  - хуки `useState` и `useEffect`
-  - поднятие стейта
-  - глобальный стейт через React Context
-  - управляемые компоненты в элементах формы
-  - использование реф для прямого доступа к DOM-элементам
-
-* React Router
-  - реализован функционал  регистрации и авторизации
-  - защищенные маршруты
-  - авторизация через JWT
-  - работа с Local Starage
-
-
-## Инструкция по установке:
-
-```
-git clone https://goldlexx.github.io/react-mesto-auth.git
-```
-Create a local `.env.local` from `.env.example` and set `REACT_APP_API_TOKEN` before running the app. The token is included in the browser bundle and is not confidential once built.
-
-```bash
+```sh
+git clone https://github.com/goldlexx/react-mesto-auth.git
+cd react-mesto-auth
 npm ci
 npm start
-npm test -- --watchAll=false
 ```
 
-Запустите локальный сервер разработки с функцией перезагрузки в реальном времени для статических и динамических страниц - [How do you set up a local testing server? (MDN web docs)](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server)
+## API configuration
 
+Copy `.env.example` to `.env.local` and set the data and authentication API base URLs. `REACT_APP_API_TOKEN` is included in the public browser bundle and must not contain a private credential. The configured endpoints are the original project services; if they are unavailable, the app will show an API error message. No substitute backend or account data is simulated.
 
-## Будущая доработка проекта будет включать в себя:
+## Build and test
 
-* Адаптив бургер меню
-
-## Языки:
-
-* JavaScript
-* фреймворк React
-
-## Макет проектной работы в Figma:
-
-* [Макет](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/JavaScript.-Sprint-12)
-
-
-
-
-
-
-
-
-
+```sh
+npm test -- --watchAll=false
+npm run build
+```

@@ -1,3 +1,6 @@
+import checkResponse from './checkResponse';
+import { API_BASE_URL } from './config';
+
 export class Api {
   constructor({ url, headers }) {
     this._url = url;
@@ -5,11 +8,7 @@ export class Api {
   }
 
   checkError(res) {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
+    return checkResponse(res);
   }
 
   getUserInfo() {
@@ -51,10 +50,7 @@ export class Api {
         name: data.name,
         link: data.link,
       }),
-    }).then((res) => {
-
-      return this.checkError(res);
-    });
+    }).then((res) => this.checkError(res));
   }
 
   deleteCard(cardId) {
@@ -98,7 +94,7 @@ export class Api {
 }
 
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-41/',
+  url: `${API_BASE_URL.replace(/\/+$/, '')}/`,
   headers: {
     ...(process.env.REACT_APP_API_TOKEN
       ? { authorization: process.env.REACT_APP_API_TOKEN }

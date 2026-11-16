@@ -1,8 +1,7 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+import checkResponse from './checkResponse';
+import { AUTH_API_BASE_URL } from './config';
 
-const checkResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-};
+export const BASE_URL = AUTH_API_BASE_URL;
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {

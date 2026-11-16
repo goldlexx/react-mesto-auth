@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
@@ -13,7 +13,7 @@ import Login from './Login';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import api from '../utils/api';
-import * as apiAuth from '../utils/apiAuth.';
+import * as apiAuth from '../utils/apiAuth';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -32,6 +32,21 @@ const App = () => {
   const [email, setEmail] = useState('practicum@yandex.ru');
   const [IsInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
   const [message, setMessage] = useState(false);
+  const [apiError, setApiError] = useState('');
+  const handleApiError = useCallback((error) => {
+    setApiError(error?.message || 'The Mesto API request failed.');
+  }, []);
+  const tokenCheck = useCallback(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) return;
+
+    apiAuth
+      .checkToken(jwt)
+      .then((res) => {
+        if (res) setLoggedIn(true);
+      })
+      .catch(handleApiError);
+  }, [handleApiError]);
   const isOpen =
     isEditAvatarPopupOpen ||
     isEditProfilePopupOpen ||
@@ -45,18 +60,18 @@ const App = () => {
       .then((res) => {
         setCards(res);
       })
-      .catch((err) => console.error(err));
+      .catch(handleApiError);
     api
       .getUserInfo()
       .then((res) => {
         setCurrentUser(res);
       })
-      .catch((err) => console.error(err));
-  }, []);
+      .catch(handleApiError);
+  }, [handleApiError]);
 
   useEffect(() => {
     tokenCheck();
-  }, []);
+  }, [tokenCheck]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -106,22 +121,6 @@ const App = () => {
     setSelectedCard(card);
   };
 
-  const tokenCheck = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      apiAuth
-        .checkToken(jwt)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-  };
-
   const onRegister = (email, password) => {
     apiAuth
       .register(password, email)
@@ -131,7 +130,7 @@ const App = () => {
       })
       .catch((err) => {
         setMessage(false);
-        console.error(err);
+        handleApiError(err);
       })
       .finally(() => {
         setIsInfoToolTipOpen(true);
@@ -149,7 +148,7 @@ const App = () => {
         setLoggedIn(true);
       })
       .catch((err) => {
-        console.error(err);
+        handleApiError(err);
       });
   };
 
@@ -164,7 +163,7 @@ const App = () => {
       .then(() => {
         setCards((state) => state.filter((item) => item._id !== card._id));
       })
-      .catch((err) => console.log(err));
+      .catch(handleApiError);
   };
 
   const handleCardLike = (card) => {
@@ -176,14 +175,14 @@ const App = () => {
         .then((newCard) => {
           setStateCards(card._id, newCard);
         })
-        .catch((err) => console.log(err));
+        .catch(handleApiError);
     } else {
       api
         .addLikeCard(card._id, !isLiked)
         .then((newCard) => {
           setStateCards(card._id, newCard);
         })
-        .catch((err) => console.log(err));
+        .catch(handleApiError);
     }
   };
 
@@ -194,7 +193,7 @@ const App = () => {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch(handleApiError);
   };
 
   const handleUpdateAvatar = (card) => {
@@ -204,7 +203,7 @@ const App = () => {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch(handleApiError);
   };
 
   const handleUpdateCards = (data) => {
@@ -214,12 +213,17 @@ const App = () => {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch(handleApiError);
   };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page__content'>
+        {apiError ? (
+          <p className='api-error' role='alert'>
+            {apiError} Check the API configuration and try again.
+          </p>
+        ) : null}
         <Routes>
           <Route
             path='/'
