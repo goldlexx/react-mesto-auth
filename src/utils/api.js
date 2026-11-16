@@ -96,9 +96,6 @@ export class Api {
 const api = new Api({
   url: `${API_BASE_URL.replace(/\/+$/, '')}/`,
   headers: {
-    ...(process.env.REACT_APP_API_TOKEN
-      ? { authorization: process.env.REACT_APP_API_TOKEN }
-      : {}),
     'Content-Type': 'application/json',
   },
 });
