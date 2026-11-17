@@ -1,51 +1,36 @@
-# Mesto — React Client
+<div align="center">
 
-A React photo-sharing interface for creating an account, editing a profile, and interacting with photo cards through a Mesto API.
+# 🔐 Mesto Auth
 
-## Live Demo
+React-версия Mesto с авторизацией и защищёнными маршрутами.
 
-[Open Mesto](https://goldlexx.github.io/react-mesto-auth/)
+[![React](https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=111)](https://react.dev/) [![Demo](https://img.shields.io/badge/demo-GitHub%20Pages-222?logo=github)](https://goldlexx.github.io/react-mesto-auth/)
 
-## Features
+</div>
 
-- Registration and sign-in
-- Protected profile and photo-card views
-- Profile and avatar editing
-- Add cards, like or unlike them, and remove cards you own
+## Возможности
 
-The app requires an API for account and card data; it does not simulate users or persistence.
+- регистрация и вход;
+- защищённые страницы профиля и карточек;
+- редактирование профиля и работа с карточками.
 
-## Tech Stack
+## Демонстрация
 
-- React 18
-- React Router 6
-- Create React App (`react-scripts`)
-- JavaScript and CSS
+[Открыть Mesto Auth](https://goldlexx.github.io/react-mesto-auth/)
 
-## Getting Started
+## Запуск
 
 ```bash
-git clone https://github.com/goldlexx/react-mesto-auth.git
-cd react-mesto-auth
 npm ci
+npm start
 ```
 
-Set the API URLs in `.env.local`. For the compatible Mesto Worker:
+Адрес API задаётся через конфигурацию проекта. Секреты в frontend не используются.
 
-```text
-REACT_APP_API_BASE_URL=https://mesto-api.rustik-yuldashev.workers.dev
-REACT_APP_AUTH_API_BASE_URL=https://mesto-api.rustik-yuldashev.workers.dev
-```
+## Технологии
 
-Then start the development server with `npm start`. Do not put API credentials in `REACT_APP_*` variables; browser builds expose their values.
+React, JavaScript, React Router, REST API.
 
-## Build and Test
+## Лицензия
 
-```bash
-npm test -- --watchAll=false
-npm run build
-```
-
-## Project Background
-
-The original client was created as a learning project during the Yandex Practicum web development course.
+Лицензия в репозитории не указана.
